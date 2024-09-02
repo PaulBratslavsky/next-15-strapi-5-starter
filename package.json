@@ -1,0 +1,25 @@
+{
+  "name": "strapi-next-starter",
+  "version": "1.0.0",
+  "description": "Strapi starter project with Next.js",
+  "type": "module",
+  "scripts": {
+    "client": "yarn dev --prefix ../client/",
+    "server": "yarn dev --prefix ../server/",
+    "setup:client": "cd client && yarn && node --loader ts-node/esm ../copy-env.mts ./",
+    "setup:server": "cd server && yarn && node --loader ts-node/esm ../copy-env.mts ./",
+    "setup": "yarn install && yarn setup:client && yarn setup:server && yarn seed",
+    "dev": "yarn concurrently \"cd client && yarn dev\" \"cd server && yarn develop\"",
+    "seed": "cd server && yarn strapi import -f ../seed-data.tar.gz --force",
+    "export": "cd server && yarn strapi export --no-encrypt -f ../seed-data",
+    "repo:upstream": "git fetch upstream && git merge upstream/main"
+  },
+  "dependencies": {
+    "@types/node": "^22.5.2",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
