@@ -8,8 +8,8 @@
     "server": "yarn dev --prefix ../server/",
     "setup:client": "cd client && yarn && node --loader ts-node/esm ../copy-env.mts ./",
     "setup:server": "cd server && yarn && node --loader ts-node/esm ../copy-env.mts ./",
-    "setup": "yarn install && yarn setup:client && yarn setup:server && yarn seed",
-    "dev": "yarn concurrently \"cd client && yarn dev\" \"cd server && yarn develop\"",
+    "setup": "yarn install && yarn setup:client && yarn setup:server",
+    "dev": "yarn concurrently \"cd server && yarn develop\" \"npx wait-on http://localhost:1337 && cd client && yarn dev\"",
     "seed": "cd server && yarn strapi import -f ../seed-data.tar.gz --force",
     "export": "cd server && yarn strapi export --no-encrypt -f ../seed-data",
     "repo:upstream": "git fetch upstream && git merge upstream/main"
@@ -17,7 +17,9 @@
   "dependencies": {
     "@types/node": "^22.5.2",
     "concurrently": "^8.2.2",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "wait-on": "^8.0.1"
+
   },
   "devDependencies": {
     "ts-node": "^10.9.2"
