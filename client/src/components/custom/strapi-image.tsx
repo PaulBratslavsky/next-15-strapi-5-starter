@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { getStrapiMedia } from "@/lib/utils";
 
 interface StrapiImageProps {
   src: string;
@@ -9,25 +8,40 @@ interface StrapiImageProps {
   className?: string;
   fill?: boolean;
   priority?: boolean;
-  rest?: any;
+  onError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 export function StrapiImage({
   src,
   alt,
   className,
+  onError,
   ...rest
 }: Readonly<StrapiImageProps>) {
-  if (!src) return null;
+  if (!src) return <p>No image available</p>;
   const imageUrl = getStrapiMedia(src);
-  const imageFallback = `https://placehold.co/600x400`;
 
   return (
     <Image
-      src={imageUrl ?? imageFallback}
+      src={imageUrl ?? ""}
       alt={alt}
       className={className}
+      onError={(e) => {
+        console.error(`Failed to load image: ${src}`);
+        onError?.(e);
+      }}
       {...rest}
     />
   );
+}
+
+export function getStrapiMedia(url: string | null) {
+  const strapiUrl =
+    process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+  if (!strapiUrl) throw new Error("NEXT_PUBLIC_STRAPI_URL is not set");
+
+  if (url == null) return null;
+  if (url.startsWith("data:")) return url;
+  if (url.startsWith("http") || url.startsWith("//")) return url;
+  return `${strapiUrl}${url}`;
 }
