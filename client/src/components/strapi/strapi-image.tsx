@@ -8,28 +8,23 @@ interface StrapiImageProps {
   className?: string;
   fill?: boolean;
   priority?: boolean;
-  onError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 export function StrapiImage({
   src,
   alt,
   className,
-  onError,
   ...rest
 }: Readonly<StrapiImageProps>) {
   if (!src) return <p>No image available</p>;
   const imageUrl = getStrapiMedia(src);
+  if (!imageUrl) return <p>No image available</p>;
 
   return (
     <Image
       src={imageUrl ?? ""}
       alt={alt}
       className={className}
-      onError={(e) => {
-        console.error(`Failed to load image: ${src}`);
-        onError?.(e);
-      }}
       {...rest}
     />
   );

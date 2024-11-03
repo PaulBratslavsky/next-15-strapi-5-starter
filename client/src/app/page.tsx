@@ -1,3 +1,5 @@
+import { Hero } from "@/components/blocks";
+
 export default function HomeRoute() {
-  return <h1>Home Route</h1>;
+  return <Hero />;
 }
