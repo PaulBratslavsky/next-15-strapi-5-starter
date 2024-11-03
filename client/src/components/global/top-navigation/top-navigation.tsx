@@ -31,8 +31,10 @@ export function useScrollY(containerRef: React.RefObject<HTMLElement>) {
 
 export function StickyHeader({
   containerRef,
+  authButton,
 }: Readonly<{
   containerRef: React.RefObject<HTMLElement>;
+  authButton: React.ReactNode;
 }>) {
   const scrollY = useScrollY(containerRef);
   const stickyNavRef = useRef<HTMLElement>(null);
@@ -59,7 +61,6 @@ export function StickyHeader({
   return (
     <header ref={stickyNavRef} className="sticky top-0 z-50 px-10 py-7 xl:px-0">
       <nav className="relative mx-auto flex items-center justify-between max-w-2xl">
-        
         <motion.img
           className="h-10 w-10 object-cover"
           src="https://images.pexels.com/photos/669502/pexels-photo-669502.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -70,7 +71,6 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         />
-
 
         <ul className="sticky left-4 right-4 top-4 z-[60] hidden items-center justify-center gap-x-5 md:flex">
           <motion.div
@@ -122,12 +122,13 @@ export function StickyHeader({
                     className="shrink-0 whitespace-nowrap"
                   >
                     <li>
-                      <a
+                      {/* <a
                         href="/"
                         className="relative inline-flex w-fit items-center justify-center gap-x-1.5 overflow-hidden rounded-full bg-primary px-3 py-1.5 text-primary-foreground outline-none "
                       >
                         Get Started
-                      </a>
+                      </a> */}
+                      {authButton}
                     </li>
                   </motion.ul>
                 )}
@@ -144,7 +145,7 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         >
-          <button>Get Started</button>
+          {authButton}
         </motion.div>
         <MotionConfig transition={{ duration: 0.3, ease: "easeInOut" }}>
           <motion.button
@@ -203,14 +204,16 @@ export function StickyHeader({
 
 export function TopNavigation({
   children,
+  authButton,
 }: {
   readonly children: React.ReactNode;
+  readonly authButton: React.ReactNode;
 }) {
   const containerRef = useRef(null);
 
   return (
     <main ref={containerRef} className="h-screen w-full overflow-y-auto">
-      <StickyHeader containerRef={containerRef} />
+      <StickyHeader containerRef={containerRef} authButton={authButton} />
       <div className="w-full">{children}</div>
     </main>
   );

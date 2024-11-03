@@ -17,9 +17,9 @@
   "dependencies": {
     "@types/node": "^22.5.2",
     "concurrently": "^8.2.2",
+    "next-auth": "^4.24.10",
     "typescript": "^5.0.0",
     "wait-on": "^8.0.1"
-
   },
   "devDependencies": {
     "ts-node": "^10.9.2"

@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+
 import "./globals.css";
 import { TopNavigation } from "@/components/global/top-navigation";
 import { cn } from "@/lib/utils";
+import { AuthButton } from "@/components/global/auth/sign-in";
+import { SessionProvider } from "next-auth/react";
 // import localFont from "next/font/local";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,9 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(poppins.className, "min-h-screen")}>
-        <TopNavigation>
-          {children}
-        </TopNavigation>
+        <SessionProvider>
+          <TopNavigation authButton={<AuthButton />}>{children}</TopNavigation>
+        </SessionProvider>
       </body>
     </html>
   );
