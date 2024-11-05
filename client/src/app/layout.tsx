@@ -4,7 +4,6 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { TopNavigation } from "@/components/global/top-navigation";
 import { cn } from "@/lib/utils";
-import { AuthButton } from "@/components/global/auth/sign-in";
 import { SessionProvider } from "next-auth/react";
 // import localFont from "next/font/local";
 
@@ -27,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(poppins.className, "min-h-screen")}>
         <SessionProvider>
-          <TopNavigation authButton={<AuthButton />}>{children}</TopNavigation>
+          <TopNavigation>{children}</TopNavigation>
         </SessionProvider>
       </body>
     </html>

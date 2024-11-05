@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { UserButton } from "../auth/user-button";
 
 export function useScrollY(containerRef: React.RefObject<HTMLElement>) {
   const [scrollY, setScrollY] = useState(0);
@@ -31,10 +32,8 @@ export function useScrollY(containerRef: React.RefObject<HTMLElement>) {
 
 export function StickyHeader({
   containerRef,
-  authButton,
 }: Readonly<{
   containerRef: React.RefObject<HTMLElement>;
-  authButton: React.ReactNode;
 }>) {
   const scrollY = useScrollY(containerRef);
   const stickyNavRef = useRef<HTMLElement>(null);
@@ -128,7 +127,7 @@ export function StickyHeader({
                       >
                         Get Started
                       </a> */}
-                      {authButton}
+                      <UserButton />
                     </li>
                   </motion.ul>
                 )}
@@ -145,7 +144,7 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         >
-          {authButton}
+          <UserButton />
         </motion.div>
         <MotionConfig transition={{ duration: 0.3, ease: "easeInOut" }}>
           <motion.button
@@ -204,16 +203,14 @@ export function StickyHeader({
 
 export function TopNavigation({
   children,
-  authButton,
 }: {
   readonly children: React.ReactNode;
-  readonly authButton: React.ReactNode;
 }) {
   const containerRef = useRef(null);
 
   return (
     <main ref={containerRef} className="h-screen w-full overflow-y-auto">
-      <StickyHeader containerRef={containerRef} authButton={authButton} />
+      <StickyHeader containerRef={containerRef} />
       <div className="w-full">{children}</div>
     </main>
   );
